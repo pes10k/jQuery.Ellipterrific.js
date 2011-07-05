@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery.Ellipterrific.js Example</title>
+    <script src="jquery-1.6.2.min.js"></script>
+    <script src="jquery.ellipterrific.js"></script>
+    <script>
+      $(function () {
+        $("#too-much-text").ellipterrific();
+        $("#still-too-much-text").ellipterrific({
+          "ellipsis_string" : " <a href='http://example.org'>Read More →</a>",
+          "split_on_words" : true
+        });
+      });
+    </script>
+    <style type="text/css">
+      body, html {        
+        font-family: Helvetica, Verdana, Arial, sans-serif;        
+        margin: 0px;
+        padding: 0px;
+        background-color: #184F55;
+        font-size: 16px;
+      }
+
+      div#content {
+        background-color: white;
+        border: 3px solid #212E35;
+        width: 920px;
+        padding: 20px;
+        margin: 20px auto;
+      }
+
+      div.section {
+        margin-bottom: 6em;
+      }
+      
+      div.section:nth-last-child(1) {
+        margin-bottom: 2em;
+      }
+
+      h1 {
+        margin-bottom: 2em;
+      }
+
+      h1, h2, h3 {
+        margin-top: 0px;
+      }
+
+      p.warning {
+        background-color: #FFA0A0;
+        border: 3px solid #FF0000;
+        padding: 1em;
+        text-align: center;
+        border-radius: 5px;
+        margin: 1em;
+      }
+
+      div.example {
+        margin: 1em;
+        padding: 1em;
+        border: 3px solid #212E35;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      dl dt {
+        font-weight: bold;
+      }
+      
+      dl dd {
+        margin-bottom: 1em;
+      }
+
+      div.example dl {
+        clear: both;
+      }
+      
+      div.example dl dd {
+        margin: 0px;        
+      }
+      
+      div.example dl dd div {
+        margin: 0 auto;
+        background-color: red;
+      }
+
+      div.example dl dt {
+        margin-bottom: 1em;
+        font-weight: bold;
+      }
+
+      div.example dl dt.col-1,
+      div.example dl dd.col-1 {
+        float: left;
+        clear: left;
+      }
+
+      div.example dl dt.col-2,
+      div.example dl dd.col-2 {
+        display: inline-block;
+      }
+
+      div.example dl dt,
+      div.example dl dd {
+        width: 425px;
+        text-align: center;        
+      }
+
+      pre {
+        border-radius: 5px;
+        border: 3px solid #212E35;
+        background-color: white;
+        padding: 1em;
+        background-color: #333;
+        color: white;
+      }
+
+      span.tag {
+        color: #f0e68c;
+        font-weight: bold;
+      }
+
+      span.attribute {
+        color: #bdb76b;
+        font-weight: bold;
+      }
+
+      span.att-value {
+        color: #ffa0a0;
+      }
+
+      span.string {
+        color: #ffa0a0;
+      }
+
+      span.bool {
+        color: #cd5c5c;
+      }
+
+      span.literal {
+        color: #cd5c5c;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content">
+      <h1>jQuery Ellipterrific ReadMe</h1>
+
+      <div class="section">
+        <h2>About Ellipterrific</h2>
+        <p>Ellipterrific is a simple jQuery plugin to trim text in an element to fill a given space and make it end with …</p>
+        <p>This plugin came out of an effort to get the CSS3 <a href="http://www.w3schools.com/cssref/css3_pr_text-overflow.asp">text-overflow: property</a> to act the way I, expected it to, which is to not require all text to be on a single line before clipping and adding the ellipse.</p>
+        <p>There are <a href="http://plugins.jquery.com/plugin-tags/ellipsis">lots of other fine jQuery plugins for doing similar things</a>.  I wrote this one because the other plugin's I tried either required a lot of additional markup in the HTML, we're slow and made the resizing process visible to the user, or otherwise didn't quite fit my needs.  It was also a good way to learn more about <a href="http://github.org">GitHub</a>.</p>
+      </div>
+
+      <div class="section">
+        <h2>Using Ellipterriffic</h2>
+        <p>Using Ellipterriffic is simple.  Its called like any other jQuery plugin by selecting a group of DOM elements and calling <em>ellipterrific()</em> on them.  No special mark up is needed.</p>
+        <p class="warning"><strong>Note:</strong> Ellipterriffic converts all content to text when calculating sizes, so any formatting will be not be preserved.</p>
+        <p>To use, first size your element with the maximum size the text should take up in CSS (ex height, width), and set it to have css style property <em>overflow</em> to be <strong>hidden</strong>.  This also makes sure that we degrade smoothly, since non-js visitors will see the element laid out correctly, but with the text clipped.</p>
+
+        <div class="example">
+          <h3>Example – Basic Usage</h3>
+<pre>
+<span class="tag">&lt;div</span> <span class="attribute">id</span>="<span class="att-value">too-much-text</span>"
+  <span class="attribute">style</span>="<span class="att-value">width: 200px; height: 50px; overflow: hidden;
+  border: 1px solid black; padding: 1em;</span>"<span class="tag">&gt;</span>
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in  voluptate velit esse
+  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<span class="tag">&lt;/div&gt;</span>
+
+<span class="tag">&lt;script&gt;</span>
+  $(<span class="string">"#too-much-text"</span>).ellipterrific();
+<span class="tag">&lt;/script&gt;</span>
+</pre>
+
+          <dl>
+            <dt class="col-1">Before</dt>
+            <dd class="col-1">
+              <div style="width: 200px; height: 50px; overflow: hidden; border: 1px solid black; padding: 1em;">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </div>
+            </dd>
+
+            <dt class="col-2">After</dt>
+            <dd class="col-2">
+              <div id="too-much-text" style="width: 200px; height: 50px; overflow: hidden; border: 1px solid black; padding: 1em;">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </div>
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Configuring Ellipterrific</h2>
+        <p>Ellipterrific accepts the following configuration options:</p>
+        <dl>
+          <dt>ellipsis_string (string)</dt>
+          <dd>The character that will be appended to the end of the element's text to note that some text has been truncated.  Can be a valid HTML string or plain text.  <em>Defaults to "…"</em>.</dd>
+
+          <dt>split_on_words (bool)</dt>
+          <dd>Whether to split the element's text on words or individual characters.  Defaults to <em>false</em>.</dd>
+        </dl>
+
+        <div class="example">
+          <h3>Example – Configured</h3>
+<pre>
+<span class="tag">&lt;div</span> <span class="attribute">id</span>="<span class="att-value">still-too-much-text</span>"
+  <span class="attribute">style</span>="<span class="att-value">width: 200px; height: 50px; overflow: hidden; 
+  border: 1px solid black; padding: 1em;</span>"<span class="tag">&gt;</span>
+  jQuery is free, open source software, dual-licensed under the MIT License
+  and the GNU General Public License, Version 2.[4] jQuery's syntax is
+  designed to make it easier to navigate a document, select DOM elements,
+  create animations, handle events, and develop Ajax applications. jQuery
+  also provides capabilities for developers to create plug-ins on top of
+  the JavaScript library. This enables developers to create abstractions
+  for low-level interaction and animation, advanced effects and high-level,
+  theme-able widgets. The modular approach to the jQuery framework allows
+  the creation of powerful and dynamic web pages and web applications.
+<span class="tag">&lt;/div&gt;</span>
+
+<span class="tag">&lt;script&gt;</span>
+  $(<span class="string">"#still-too-much-text"</span>).ellipterrific(<span class="literal">{</span>
+    <span class="string">"ellipsis_string"</span> : <span class="string">" &lt;a href='http://example.org'&gt;Read More →&lt;/a&gt;"</span>,
+    <span class="string">"split_on_words"</span> : <span class="bool">true</span>
+  <span class="literal">}</span>);
+<span class="tag">&lt;/script&gt;</span>
+</pre>
+          <dl>
+            <dt class="col-1">Before</dt>
+            <dd class="col-1">
+              <div style="width: 200px; height: 50px; overflow: hidden; border: 1px solid black; padding: 1em;">
+                jQuery is free, open source software, dual-licensed under the MIT License and the GNU General Public License, Version 2.[4] jQuery's syntax is designed to make it easier to navigate a document, select DOM elements, create animations, handle events, and develop Ajax applications. jQuery also provides capabilities for developers to create plug-ins on top of the JavaScript library. This enables developers to create abstractions for low-level interaction and animation, advanced effects and high-level, theme-able widgets. The modular approach to the jQuery framework allows the creation of powerful and dynamic web pages and web applications.
+              </div>
+            </dd>
+
+            <dt class="col-2">After</dt>
+            <dd class="col-2">
+              <div id="still-too-much-text" style="width: 200px; height: 50px; overflow: hidden; border: 1px solid black; padding: 1em;">
+                jQuery is free, open source software, dual-licensed under the MIT License and the GNU General Public License, Version 2.[4] jQuery's syntax is designed to make it easier to navigate a document, select DOM elements, create animations, handle events, and develop Ajax applications. jQuery also provides capabilities for developers to create plug-ins on top of the JavaScript library. This enables developers to create abstractions for low-level interaction and animation, advanced effects and high-level, theme-able widgets. The modular approach to the jQuery framework allows the creation of powerful and dynamic web pages and web applications.
+              </div>
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>More Ellipterrific Bits</h2>
+        <dl>
+          <dt>Author</dt>
+          <dd>Peter E. Snyder <a href="mailto:snyderp@gmail.com">&lt;snyderp@gmail.com&gt;</a></dd>
+
+          <dt>Download</dt>
+          <dd><a href="https://github.com/snyderp/jQuery.Ellipterrific.js">https://github.com/snyderp/jQuery.Ellipterrific.js</a></dd>
+        </dl>
+      </div>
+    </article>
+  </body>
+</html>
