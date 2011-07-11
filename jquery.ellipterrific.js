@@ -2,8 +2,8 @@
  * jQuery.ellipterrific.js
  *
  * Author: Peter Snyder – snyderp@gmail.com
- * Version: 0.2
- * Date: 07/05/2011
+ * Version: 0.3
+ * Date: 07/11/2011
  *
  * Simple jQuery plugin to trim text to fill a given space and make it end with …
  *
@@ -28,6 +28,8 @@
  * to calculate it itself.
  *
  * Change Log
+ *  0.3 Fix issue where generating guesses for the binary search would sometimes
+ *      result in no matches because of a rounding issue
  *  0.2 Change testing mechanism to be a binary search, to minimize number of sets of text
  *      we need to test
  *  0.1 Initial release
@@ -127,7 +129,7 @@
 
             } else {
 
-                mid = low_bound + (high_bound - low_bound) / 2;
+                mid = Math.floor(low_bound + (high_bound - low_bound) / 2);
 
                 if (guess === undefined) {
                     guess = mid;
@@ -223,7 +225,7 @@
 
                     }
                 }
-
+                
                 $selected_elm.css("overflow", "hidden");
             }
         });
