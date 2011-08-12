@@ -2,8 +2,8 @@
  * jQuery.ellipterrific.js
  *
  * Author: Peter Snyder – snyderp@gmail.com
- * Version: 0.4
- * Date: 08/01/2011
+ * Version: 0.5
+ * Date: 08/11/2011
  *
  * Simple jQuery plugin to trim text to fill a given space and make it end with …
  *
