@@ -2,8 +2,8 @@
  * jQuery.ellipterrific.js
  *
  * Author: Peter Snyder – snyderp@gmail.com
- * Version: 0.3
- * Date: 07/11/2011
+ * Version: 0.4
+ * Date: 08/01/2011
  *
  * Simple jQuery plugin to trim text to fill a given space and make it end with …
  *
@@ -26,13 +26,6 @@
  * but which required a lot more markup and being able to predict the number
  * of rows of text you wanted to appear in an element, instead of being able
  * to calculate it itself.
- *
- * Change Log
- *  0.3 Fix issue where generating guesses for the binary search would sometimes
- *      result in no matches because of a rounding issue
- *  0.2 Change testing mechanism to be a binary search, to minimize number of sets of text
- *      we need to test
- *  0.1 Initial release
  */
 (function ($) {
 
@@ -70,24 +63,24 @@
             *                                  with the provided text
             */
             var $element = $(element),
-                initial_text = $(element).html(),
+                initial_text = $(element).text(),
                 intitial_height = $element.innerHeight(),
                 initial_width = $element.innerWidth(),
                 are_words_overflowing;
 
             if (configured_options.split_on_words) {
 
-                $element.html(words.join(" ") + configured_options.ellipsis_string);
+                $element.text(words.join(" ") + configured_options.ellipsis_string);
 
             } else {
 
-                $element.html($.trim(words.join("")) + configured_options.ellipsis_string);
+                $element.text($.trim(words.join("")) + configured_options.ellipsis_string);
 
             }
 
-            are_words_overflowing = !!(element.scrollHeight > intitial_height || element.scrollWidth > initial_width);
+            are_words_overflowing = (element.scrollHeight > intitial_height || element.scrollWidth > initial_width);
 
-            $element.html(initial_text);
+            $element.text(initial_text);
             return are_words_overflowing;
         };
 
@@ -129,7 +122,7 @@
 
             } else {
 
-                mid = Math.floor(low_bound + (high_bound - low_bound) / 2);
+                mid = Math.ceil(low_bound + (high_bound - low_bound) / 2);
 
                 if (guess === undefined) {
                     guess = mid;
@@ -189,6 +182,11 @@
                     ? $.trim(initial_text).match(/[\S]+/g)
                     : $.trim(initial_text).split("");
 
+            if ( ! text_words || ! text_words.length === 0) {
+              console.log(initial_text);
+              return;
+            }
+
             // Make sure the text is currently set to be hidden.
             // If not, theres nothing to do
             if ($selected_elm.css("overflow") === "hidden") {
@@ -225,7 +223,7 @@
 
                     }
                 }
-                
+
                 $selected_elm.css("overflow", "hidden");
             }
         });
